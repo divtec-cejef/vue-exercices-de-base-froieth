@@ -10,11 +10,11 @@
 
         <v-card-subtitle>
           Caractères restants :
-          <strong>*** CARACTÈRES RESTANTS ***</strong>
+          <strong>{{ caractèreRestant }}</strong>
         </v-card-subtitle>
 
         <v-card-text>
-          <v-alert type="error" class="mb-2">
+          <v-alert type="error" class="mb-2" v-if="userInput.length > MAX_LENGTH">
             Vous avez atteint la limite maximale de caractères !
           </v-alert>
 
@@ -22,6 +22,7 @@
             outlined
             rows="2"
             label="Tapez votre texte ici"
+            v-model="userInput"
             :counter="MAX_LENGTH"
           />
         </v-card-text>
@@ -40,11 +41,13 @@
 // Importation du composant contenant la donnée de l'exercice
 import ExerciceObjectifs from "@/components/ExerciceObjectifs.vue";
 // Importation de la fonction réactive ref
-import { ref } from 'vue';
+import { ref, computed} from 'vue';
 
 // Constante pour la limite de caractères
 const MAX_LENGTH = 20;
 // Variable réactive pour le texte saisi
 const userInput = ref('');
+
+const caractèreRestant = computed(() => MAX_LENGTH - userInput.value.length)
 
 </script>
