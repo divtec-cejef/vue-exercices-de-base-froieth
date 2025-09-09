@@ -9,18 +9,19 @@
       <!-- Carte statique à transformer -->
       <v-card class="mx-auto my-6 pa-2" max-width="400">
         <!-- Remplacez *** TITRE *** par un contenu dynamique -->
-        <v-card-title>*** TITRE ***</v-card-title>
+        <v-card-title>{{ title }}</v-card-title>
 
         <!-- Remplacez *** DESCRIPTION *** par un contenu dynamique avec une liaison de style -->
-        <v-card-subtitle style="color: black;">
-          *** DESCRIPTION ***
+        <v-card-subtitle :style="{ color: isHighlighted ? 'blue' : 'black' }">
+          {{ description }}
         </v-card-subtitle>
 
         <!-- Rendez ce bouton fonctionnel pour changer la couleur -->
         <v-card-actions>
-          <v-btn color="primary">
-            Mettre en surbrillance
+          <v-btn color="primary" @click="toggleHighlight">
+            {{ isHighlighted ? "Réinitialiser la couleur" : "Mettre en surbrillance" }}
           </v-btn>
+
         </v-card-actions>
       </v-card>
     </div>
@@ -30,10 +31,16 @@
 <script setup>
 // Importation du composant contenant la donnée de l'exercice
 import ExerciceObjectifs from "@/components/ExerciceObjectifs.vue";
+import {ref} from "vue";
 // Données préparées pour l'exercice
 // SUGGESTION : Pensez à rendre ces données réactives pour qu'elles puissent être mises à jour dynamiquement.
 
 const title = "Bienvenue à l'exercice 1";
 const description = "Cet exercice teste le rendu déclaratif et les liaisons d'attributs.";
-const isHighlighted = false;
+const isHighlighted = ref(false);
+
+function toggleHighlight() {
+  isHighlighted.value = !isHighlighted.value;
+}
+
 </script>
