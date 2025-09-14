@@ -24,11 +24,12 @@
             label="Tapez votre texte ici"
             v-model="userInput"
             :counter="MAX_LENGTH"
+            ref="textRef"
           />
         </v-card-text>
 
         <v-card-actions>
-          <v-btn color="primary">
+          <v-btn color="primary" @click="focusText">
             Activer le champ de texte
           </v-btn>
         </v-card-actions>
@@ -49,5 +50,13 @@ const MAX_LENGTH = 20;
 const userInput = ref('');
 
 const caractèreRestant = computed(() => MAX_LENGTH - userInput.value.length)
+
+const textRef = ref(null);
+
+const focusText = () => {
+  if (textRef.value?.focus) {
+    textRef.value.focus();
+  }
+};
 
 </script>
