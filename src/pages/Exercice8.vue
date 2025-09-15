@@ -11,15 +11,16 @@
         <v-card-text>
           <v-list>
             <!-- Element à transformer en composant -->
-            <v-list-item>
+            <v-list-item v-for="(pokemons, index) in pokemons" :key="index">
               <v-list-item-title>
-                *** Pika Pika ! ***
+                {{ pokemons }}
               </v-list-item-title>
 
               <template v-slot:append>
                 <v-btn
                   icon="mdi-delete"
                   variant="text"
+                  @click="removePokemon(index)"
                 ></v-btn>
               </template>
             </v-list-item>
@@ -40,6 +41,8 @@ const pokemons = ref(["Pikachu", "Bulbizarre", "Salamèche", "Carapuce", "Rondou
 
 // Supprimer un Pokémon de la liste
 const removePokemon = (index) => {
-  pokemons.value.splice(index, 1);
+  if (confirm(`Voulez-vous  supprimer ${pokemons.value[index]} ?`)) {
+    pokemons.value.splice(index, 1);
+  }
 };
 </script>
